@@ -27,44 +27,44 @@ const { uploadImages } = require('./lib/uploadimage')
 require('./command/case.js')
 nocache('./command/case.js', module => console.log(`${module} is now updated!`))
 
-const starts = async (haruka = new WAConnection()) => {
-    haruka.logger.level = 'warn'
-    haruka.version = [2, 2143, 3]
-    haruka.browserDescription = [ 'Haruka-Bot', 'Chrome', '3.0' ]
-	CFonts.say('Haruka', {
+const starts = async (kiki = new WAConnection()) => {
+    kiki.logger.level = 'warn'
+    kiki.version = [2, 2143, 3]
+    kiki.browserDescription = [ 'YT Kiki ajg', 'Chrome', '3.0' ]
+	CFonts.say('kiki', {
 		font: 'block',
     	color: ['#ff9c00'],
     	align: 'center',
 		})
-	CFonts.say(`Bot WhatsApp Created By ZeeoneOfc`, {
+	CFonts.say(`Bot WhatsApp Created By Kiki Ajg`, {
 		font: 'console',
 		align: 'center',
 		gradient: ['red', 'magenta']
 		})
 		
-    haruka.on('qr', () => {
+    kiki.on('qr', () => {
         console.log(color('[','white'), color('!','red'), color(']','white'), color(' Scan qr maks 20 detik sebelum qr expired'))
     })
 
-    fs.existsSync('./session.json') && haruka.loadAuthInfo('./session.json')
-    haruka.on('connecting', () => {
+    fs.existsSync('./session.json') && kiki.loadAuthInfo('./session.json')
+    kiki.on('connecting', () => {
         start('2', 'Connecting...')
     })
-    haruka.on('open', () => {
+    kiki.on('open', () => {
         success('2', 'Connected')
     })
-    await haruka.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./session.json', JSON.stringify(haruka.base64EncodedAuthInfo(), null, '\t'))
+    await kiki.connect({timeoutMs: 30*1000})
+        fs.writeFileSync('./session.json', JSON.stringify(kiki.base64EncodedAuthInfo(), null, '\t'))
 
-    haruka.on('chat-update', async (message) => {
-        require('./command/case.js')(haruka, message)
+    kiki.on('chat-update', async (message) => {
+        require('./command/case.js')(kiki, message)
     })
 
-	haruka.on('group-participants-update', async (anu) => {
+	kiki.on('group-participants-update', async (anu) => {
 		console.log(anu)
 		try {
 						const sendButLoc = async (id, text1, desc1, gam1, but = [], options = {}) => {
-							const mediaxxaaaa = await haruka.prepareMessage(id, gam1, MessageType.location, {thumbnail: gam1})
+							const mediaxxaaaa = await kiki.prepareMessage(id, gam1, MessageType.location, {thumbnail: gam1})
 							var mhan = mediaxxaaaa.message["ephemeralMessage"] ? mediaxxaaaa.message.ephemeralMessage : mediaxxaaaa
 							const buttonMessages = {
 								locationMessage: mhan.message.locationMessage,
@@ -73,19 +73,19 @@ const starts = async (haruka = new WAConnection()) => {
 								buttons: but,
 								headerType: 6
 								}
-							haruka.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
+							kiki.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 						}
-						const mdata = await haruka.groupMetadata(anu.jid)
+						const mdata = await kiki.groupMetadata(anu.jid)
 						num = anu.participants[0]
-						let v = haruka.contacts[num] || { notify: num.replace(/@.+/, "") };
+						let v = kiki.contacts[num] || { notify: num.replace(/@.+/, "") };
 						anu_user = v.vname || v.notify || num.split("@")[0];
 						try {
-							ppmem = await haruka.getProfilePicture(num);
+							ppmem = await kiki.getProfilePicture(num);
 							} catch (e) {
 								ppmem = 'https://telegra.ph/file/f8df36078279304745bae.png'
 								}
 						try {
-							ppgc = await haruka.getProfilePicture(anu.jid);
+							ppgc = await kiki.getProfilePicture(anu.jid);
 							} catch (e) {
 								ppgc = 'https://telegra.ph/file/d4c05638fa7886a1d8060.jpg'
 								}
@@ -100,14 +100,14 @@ const starts = async (haruka = new WAConnection()) => {
 											},
 										"type": "RESPONSE"
 										}]
-						if (anu.action == 'add' && !num.includes(haruka.user.jid)) {
+						if (anu.action == 'add' && !num.includes(kiki.user.jid)) {
 							welcome = await getBuffer(`https://api-alphabot.herokuapp.com/api/greetings/welcome2?name=${encodeURI(anu_user)}&member=${encodeURI(mdata.participants.length)}&groupName=${encodeURI(mdata.subject)}&ppuser=${ppmem3}&bgurl=${background}&apikey=Alphabot`)
 							try{
 							await sendButLoc(mdata.id, `Welcome @${num.split('@')[0]} to ${mdata.subject}` + '\n' + lang.welcome(), `Welcome Message By ${ownername}`,welcome, [{"buttonId": `.owner`,"buttonText": {"displayText": "Welcome 🤗"},"type": "RESPONSE"}], {contextInfo: { mentionedJid: [num]}})
 							} catch {
 								await sendButLoc(mdata.id, `Welcome @${num.split('@')[0]} to ${mdata.subject}` + '\n' + lang.welcome(), `Welcome Message By ${ownername}`,ppmem2, [{"buttonId": `.owner`,"buttonText": {"displayText": "Welcome 🤗"},"type": "RESPONSE"}], {contextInfo: { mentionedJid: [num]}})
 							}
-						} else if (anu.action == 'remove' && !num.includes(haruka.user.jid)) {
+						} else if (anu.action == 'remove' && !num.includes(kiki.user.jid)) {
 							goodbye = await getBuffer(`https://api-alphabot.herokuapp.com/api/greetings/goodbye2?name=${encodeURI(anu_user)}&member=${encodeURI(mdata.participants.length)}&groupName=${encodeURI(mdata.subject)}&ppuser=${ppmem3}&bgurl=${background}&apikey=Alphabot`)
 							try{
 							await sendButLoc(mdata.id, `Goodbye @${num.split('@')[0]}\n⌯ָ   ֙Leave from group:\n${mdata.subject}` + '\n' + lang.leave(), `Leave Message By ${ownername}`,goodbye, [{"buttonId": `.owner`,"buttonText": {"displayText": "Bye 🤲"},"type": "RESPONSE"}], {contextInfo: { mentionedJid: [num]}})
@@ -122,7 +122,7 @@ const starts = async (haruka = new WAConnection()) => {
 		})
 
 antidel = global.anti_delete
-haruka.on('message-delete', async (m) => {
+kiki.on('message-delete', async (m) => {
 if (m.key.remoteJid == 'status@broadcast') return
 if (!m.key.fromMe && m.key.fromMe) return
 if (antidel === false) return
@@ -139,24 +139,25 @@ month: 'long',
 year: 'numeric'
 })
 const type = Object.keys(m.message)[0] 
-haruka.sendMessage(m.key.remoteJid, `*A N T I  - D E L E T E *
+kiki.sendMessage(m.key.remoteJid, `*A N T I  - D E L E T E *
 
 Name : @${m.participant.split("@")[0]}
 Day :  ${week} ${calender}
 Time : ${jam}
 Type : ${type}`, MessageType.text, {quoted: m.message, contextInfo: {"mentionedJid": [m.participant]}})
 
-haruka.copyNForward(m.key.remoteJid, m.message, {quoted: falfaa})
+kiki.copyNForward(m.key.remoteJid, m.message, {quoted: falfaa})
 })
 antical = global.anticall     
-haruka.on('CB:action,,call', async json => {
+kiki.on('CB:action,,call', async json => {
 if (antical === false) return
         const callerId = json[2][0][1].from;
         var vcard = 'BEGIN:VCARD\n' + 'VERSION:3.0\n' + 'FN:' + `${global.ownername}` + '\n' + `ORG:Creator ${global.botname}\n` + 'TEL;type=CELL;type=VOICE;waid=' + `${global.ownernumber}` + ':+' + `${global.ownernumber}` + '\n' + 'END:VCARD'
-        haruka.sendMessage(callerId, `*Sorry ${haruka.user.name} can't receive calls.*\n*Call = Block!*`, MessageType.text)
-        haruka.sendMessage(callerId, { displayname: `${global.ownername}`, vcard: vcard}, MessageType.contact, {contextInfo: { externalAdReply:{title: `Creator ${setting.botname}`,body:"",previewType:"PHOTO",thumbnail: global.thumbnail ,sourceUrl:`https://wa.me/${global.ownernumber}?text=Assalamualaikum om, buka blokir saya`}}})
+        kiki.sendMessage(callerId, `*Sorry ${kiki.user.name} can't receive calls.*\n*Call = Block!*`, MessageType.text)
+        
+        kiki.sendMessage(callerId, { displayname: `${global.ownername}`, vcard: vcard}, MessageType.contact, {contextInfo: { externalAdReply:{title: `Creator ${setting.botname}`,body:"",previewType:"PHOTO",thumbnail: global.thumbnail ,sourceUrl:`https://wa.me/${global.ownernumber}?text=Assalamualaikum om, buka blokir saya`}}})
         await sleep(5000)
-        await haruka.blockUser(callerId, "add")
+        await kiki.blockUser(callerId, "add")
         })
 }
 	
