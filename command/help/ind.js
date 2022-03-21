@@ -48,11 +48,11 @@ exports.ok = () =>{
 	return` ✅ Oke done ~`
 	}
 exports.welcome = () =>{
-	return`Jangan Lupa Intro Ya~
-⌯ָ   ֙Nama :
-⌯ָ   ֙Umur :
-⌯ָ   ֙Kelamin :
-⌯ָ   ֙Askot :
+	return`Jangan Lupa baca Ya~
+⌯ָ   • No sherlink
+⌯ָ   • No porno
+⌯ָ   • No lapak Dm/ft
+⌯ָ   • No kirim virtek yy jlk 🗿
 ╰─ ᝬ _Patuhi Rules Group Ya_  >_<`
       }
 exports.leave = () =>{
@@ -66,7 +66,7 @@ exports.menu = (prefix, salam, pushname) =>{
 ╭─⬣ *List Menu*
 │ • ${prefix}menu
 │ • ${prefix}help
-│ • ${prefix}haruka
+│ • ${prefix}kiki
 │
 ├ *Download*
 │ • ${prefix}play [query]
